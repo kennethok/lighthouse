@@ -169,12 +169,12 @@ const expectations = [
           },
         },
         'uses-responsive-images': {
-          displayValue: 'Potential savings of 69\xa0KB',
+          displayValue: 'Potential savings of 53\xa0KB',
           details: {
-            overallSavingsBytes: '>65000',
+            overallSavingsBytes: '>50000',
             items: {
-              0: {wastedPercent: '<60'},
-              1: {wastedPercent: '<60'},
+              0: {wastedPercent: '<46'},
+              1: {wastedPercent: '<46'},
               length: 2,
             },
           },
@@ -195,13 +195,13 @@ const expectations = [
               },
               {
                 url: 'http://localhost:10200/byte-efficiency/script.js?gzip=1',
-                transferSize: 1158,
-                resourceSize: 52997,
+                transferSize: '1100 +/- 100',
+                resourceSize: '53000 +/- 1000',
               },
               {
                 url: 'http://localhost:10200/byte-efficiency/script.js',
-                transferSize: 53203,
-                resourceSize: 52997,
+                transferSize: '53200 +/- 1000',
+                resourceSize: '53000 +/- 1000',
               },
               {
                 url: 'http://localhost:10200/favicon.ico',
