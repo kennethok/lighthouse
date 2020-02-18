@@ -170,18 +170,16 @@ describe('Config', () => {
 
     // Shouldn't throw.
     const config = new Config({
-      passes: [{
-        passName: 'defaultPass',
-        gatherers: [
-          'viewport-dimensions',
-        ],
-      }],
+      extends: 'lighthouse:default',
       audits: [DoesntNeedYourCrap],
+    }, {
+      // Trigger filtering logic.
+      onlyAudits: ['optional-artifact-audit'],
     });
     expect(config.passes[0].gatherers.map(g => g.path)).toEqual(['viewport-dimensions']);
   });
 
-  it('should keep optionalArtifacts in gatherers after filter', async () => { 
+  it('should keep optionalArtifacts in gatherers after filter', async () => {
     class ButWillStillTakeYourCrap extends Audit {
       static get meta() {
         return {
@@ -202,17 +200,21 @@ describe('Config', () => {
     }
 
     const config = new Config({
+      extends: 'lighthouse:default',
+      // TODO(cjamcl): remove when source-maps is in default config.
       passes: [{
         passName: 'defaultPass',
         gatherers: [
           'source-maps',
-          'viewport-dimensions',
         ],
       }],
       audits: [ButWillStillTakeYourCrap],
+    }, {
+      // Trigger filtering logic.
+      onlyAudits: ['optional-artifact-audit'],
     });
     expect(config.passes[0].gatherers.map(g => g.path))
-      .toEqual(['source-maps', 'viewport-dimensions']);
+      .toEqual(['viewport-dimensions', 'source-maps']);
   });
 
   it('does not throw when an audit requires only base artifacts', () => {
