@@ -328,17 +328,17 @@ class Runner {
         ...sharedAuditContext,
       };
 
-      // Only pass the declared `requiredArtifacts` to the audit
+      // Only pass the declared `requiredArtifacts`/`optionalArtifacts` to the audit
       // The type is masquerading as `LH.Artifacts` but will only contain a subset of the keys
       // to prevent consumers from unnecessary type assertions.
-      const requiredArtifacts = audit.meta.requiredArtifacts
-        .reduce((requiredArtifacts, artifactName) => {
+      const narrowedArtifacts = audit.meta.requiredArtifacts.concat(audit.meta.optionalArtifacts)
+        .reduce((narrowedArtifacts, artifactName) => {
           const requiredArtifact = artifacts[artifactName];
           // @ts-ignore tsc can't yet express that artifactName is only a single type in each iteration, not a union of types.
-          requiredArtifacts[artifactName] = requiredArtifact;
-          return requiredArtifacts;
+          narrowedArtifacts[artifactName] = requiredArtifact;
+          return narrowedArtifacts;
         }, /** @type {LH.Artifacts} */ ({}));
-      const product = await audit.audit(requiredArtifacts, auditContext);
+      const product = await audit.audit(narrowedArtifacts, auditContext);
       auditResult = Audit.generateAuditResult(audit, product);
     } catch (err) {
       // Log error if it hasn't already been logged above.
