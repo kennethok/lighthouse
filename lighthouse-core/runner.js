@@ -335,9 +335,9 @@ class Runner {
         .concat(audit.meta.optionalArtifacts || []);
       const narrowedArtifacts = requestedArtifacts
         .reduce((narrowedArtifacts, artifactName) => {
-          const requiredArtifact = artifacts[artifactName];
+          const requestedArtifact = artifacts[artifactName];
           // @ts-ignore tsc can't yet express that artifactName is only a single type in each iteration, not a union of types.
-          narrowedArtifacts[artifactName] = requiredArtifact;
+          narrowedArtifacts[artifactName] = requestedArtifact;
           return narrowedArtifacts;
         }, /** @type {LH.Artifacts} */ ({}));
       const product = await audit.audit(narrowedArtifacts, auditContext);
