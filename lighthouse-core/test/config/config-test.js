@@ -147,6 +147,74 @@ describe('Config', () => {
     })).toThrow('VRMLElements gatherer, required by audit missing-artifact-audit, was not found in config');
   });
 
+  // eslint-disable-next-line max-len
+  it('does not throw when an audit requests an optional artifact with no gatherer supplying it', async () => {
+    class DoesntNeedYourCrap extends Audit {
+      static get meta() {
+        return {
+          id: 'optional-artifact-audit',
+          title: 'none',
+          description: 'none',
+          requiredArtifacts: [
+            'URL', // base artifact
+            'ViewportDimensions', // from gatherer
+          ],
+          optionalArtifacts: [
+            'SourceMaps', // Not in the config.
+          ],
+        };
+      }
+
+      static audit() {}
+    }
+
+    // Shouldn't throw.
+    const config = new Config({
+      passes: [{
+        passName: 'defaultPass',
+        gatherers: [
+          'viewport-dimensions',
+        ],
+      }],
+      audits: [DoesntNeedYourCrap],
+    });
+    expect(config.passes[0].gatherers.map(g => g.path)).toEqual(['viewport-dimensions']);
+  });
+
+  it('does warn when an audit requests and receives an optional artifact', async () => {
+    class ButWillStillTakeYourCrap extends Audit {
+      static get meta() {
+        return {
+          id: 'optional-artifact-audit',
+          title: 'none',
+          description: 'none',
+          requiredArtifacts: [
+            'URL', // base artifact
+            'ViewportDimensions', // from gatherer
+          ],
+          optionalArtifacts: [
+            'SourceMaps', // Is in the config.
+          ],
+        };
+      }
+
+      static audit() {}
+    }
+
+    const config = new Config({
+      passes: [{
+        passName: 'defaultPass',
+        gatherers: [
+          'source-maps',
+          'viewport-dimensions',
+        ],
+      }],
+      audits: [ButWillStillTakeYourCrap],
+    });
+    expect(config.passes[0].gatherers.map(g => g.path))
+      .toEqual(['source-maps', 'viewport-dimensions']);
+  });
+
   it('does not throw when an audit requires only base artifacts', () => {
     class BaseArtifactsAudit extends Audit {
       static get meta() {
