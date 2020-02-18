@@ -331,7 +331,9 @@ class Runner {
       // Only pass the declared `requiredArtifacts`/`optionalArtifacts` to the audit
       // The type is masquerading as `LH.Artifacts` but will only contain a subset of the keys
       // to prevent consumers from unnecessary type assertions.
-      const narrowedArtifacts = audit.meta.requiredArtifacts.concat(audit.meta.optionalArtifacts || [])
+      const requestedArtifacts = audit.meta.requiredArtifacts
+        .concat(audit.meta.optionalArtifacts || []);
+      const narrowedArtifacts = requestedArtifacts
         .reduce((narrowedArtifacts, artifactName) => {
           const requiredArtifact = artifacts[artifactName];
           // @ts-ignore tsc can't yet express that artifactName is only a single type in each iteration, not a union of types.
