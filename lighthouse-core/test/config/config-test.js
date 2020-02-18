@@ -181,7 +181,7 @@ describe('Config', () => {
     expect(config.passes[0].gatherers.map(g => g.path)).toEqual(['viewport-dimensions']);
   });
 
-  it('does warn when an audit requests and receives an optional artifact', async () => {
+  it('should keep optionalArtifacts in gatherers after filter', async () => { 
     class ButWillStillTakeYourCrap extends Audit {
       static get meta() {
         return {
