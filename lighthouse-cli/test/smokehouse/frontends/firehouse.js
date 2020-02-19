@@ -7,7 +7,7 @@
 
 /**
  * @fileoverview Smoke test runner.
- * Used to test integrations that run Lighthouse within a browser (i.e. LR)
+ * Used to test integrations that run Lighthouse within a browser (i.e. LR, DevTools)
  * Supports skipping and modifiying expectations to match the environment.
  */
 
