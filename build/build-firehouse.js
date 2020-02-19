@@ -7,9 +7,8 @@
 
 const browserify = require('browserify');
 const fs = require('fs');
-const path = require('path');
 
-const distDir = path.join(__dirname, '..', 'dist');
+const distDir = `${__dirname}/../dist`;
 const bundleOutFile = `${distDir}/firehouse-bundle.js`;
 const firehouseFilename = './lighthouse-cli/test/smokehouse/frontends/firehouse.js';
 
