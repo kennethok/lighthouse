@@ -17,10 +17,10 @@ const smokeTests = require('../test-definitions/core-tests.js');
 const {runSmokehouse} = require('../smokehouse.js');
 
 /**
- * @param {Smokehouse.FirehouseOptions} options
+ * @param {Smokehouse.SmokehouseLibOptions} options
  */
-async function runFirehouse(options) {
-  const {smokehouse, urlFilterRegex, skip, modify} = options;
+async function smokehouse(options) {
+  const {urlFilterRegex, skip, modify, ...smokehouseOptions} = options;
 
   /** @type {Smokehouse.TestDfn[]} */
   const clonedTests = JSON.parse(JSON.stringify(smokeTests));
@@ -47,7 +47,7 @@ async function runFirehouse(options) {
     };
   }).filter(test => test.expectations.length > 0);
 
-  return runSmokehouse(modifiedTests, smokehouse);
+  return runSmokehouse(modifiedTests, smokehouseOptions);
 }
 
-module.exports = runFirehouse;
+module.exports = smokehouse;

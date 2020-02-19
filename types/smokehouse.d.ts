@@ -43,8 +43,7 @@
     lighthouseRunner?: LighthouseRunner;
   }
 
-  export interface FirehouseOptions {
-    smokehouse: SmokehouseOptions;
+  export interface SmokehouseLibOptions extends SmokehouseOptions {
     urlFilterRegex?: RegExp;
     skip?: (test: TestDfn, expectation: ExpectedRunnerResult) => string | false;
     modify?: (test: TestDfn, expectation: ExpectedRunnerResult) => void;

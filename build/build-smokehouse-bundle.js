@@ -9,10 +9,10 @@ const browserify = require('browserify');
 const fs = require('fs');
 
 const distDir = `${__dirname}/../dist`;
-const bundleOutFile = `${distDir}/firehouse-bundle.js`;
-const firehouseFilename = './lighthouse-cli/test/smokehouse/frontends/firehouse.js';
+const bundleOutFile = `${distDir}/smokehouse-bundle.js`;
+const smokehouseLibFilename = './lighthouse-cli/test/smokehouse/frontends/lib.js';
 
-browserify(firehouseFilename, {standalone: 'Lighthouse.Firehouse'})
+browserify(smokehouseLibFilename, {standalone: 'Lighthouse.Smokehouse'})
   .ignore('./lighthouse-cli/test/smokehouse/lighthouse-runners/cli.js')
   .bundle((err, src) => {
     if (err) throw err;
