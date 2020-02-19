@@ -692,10 +692,10 @@ class Config {
 
     const gatherers = new Set();
     for (const auditDefn of audits) {
-      const {requiredArtifacts, optionalArtifacts} = auditDefn.implementation.meta;
+      const {requiredArtifacts, __internalOptionalArtifacts} = auditDefn.implementation.meta;
       requiredArtifacts.forEach(artifact => gatherers.add(artifact));
-      if (optionalArtifacts) {
-        optionalArtifacts.forEach(artifact => gatherers.add(artifact));
+      if (__internalOptionalArtifacts) {
+        __internalOptionalArtifacts.forEach(artifact => gatherers.add(artifact));
       }
     }
     return gatherers;

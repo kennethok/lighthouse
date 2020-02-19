@@ -328,11 +328,11 @@ class Runner {
         ...sharedAuditContext,
       };
 
-      // Only pass the declared `requiredArtifacts`/`optionalArtifacts` to the audit
+      // Only pass the declared required and optional artifacts to the audit
       // The type is masquerading as `LH.Artifacts` but will only contain a subset of the keys
       // to prevent consumers from unnecessary type assertions.
       const requestedArtifacts = audit.meta.requiredArtifacts
-        .concat(audit.meta.optionalArtifacts || []);
+        .concat(audit.meta.__internalOptionalArtifacts || []);
       const narrowedArtifacts = requestedArtifacts
         .reduce((narrowedArtifacts, artifactName) => {
           const requestedArtifact = artifacts[artifactName];

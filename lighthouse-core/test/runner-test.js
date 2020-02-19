@@ -407,7 +407,7 @@ describe('Runner', () => {
             failureTitle: 'Artifacts',
             description: 'Test for always throwing',
             requiredArtifacts: ['ArtifactA', 'ArtifactC'],
-            optionalArtifacts: ['ArtifactD'],
+            __internalOptionalArtifacts: ['ArtifactD'],
           };
         }
       }

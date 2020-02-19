@@ -159,7 +159,7 @@ describe('Config', () => {
             'URL', // base artifact
             'ViewportDimensions', // from gatherer
           ],
-          optionalArtifacts: [
+          __internalOptionalArtifacts: [
             'SourceMaps', // Not in the config.
           ],
         };
@@ -179,7 +179,7 @@ describe('Config', () => {
     expect(config.passes[0].gatherers.map(g => g.path)).toEqual(['viewport-dimensions']);
   });
 
-  it('should keep optionalArtifacts in gatherers after filter', async () => {
+  it('should keep optional artifacts in gatherers after filter', async () => {
     class ButWillStillTakeYourCrap extends Audit {
       static get meta() {
         return {
@@ -190,7 +190,7 @@ describe('Config', () => {
             'URL', // base artifact
             'ViewportDimensions', // from gatherer
           ],
-          optionalArtifacts: [
+          __internalOptionalArtifacts: [
             'SourceMaps', // Is in the config.
           ],
         };
