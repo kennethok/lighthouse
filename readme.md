@@ -20,7 +20,7 @@
   - [Lighthouse Integrations](#lighthouse-integrations)
   - [Plugins](#plugins)
   - [Related Projects](#related-projects)
-- [FAQ](#faq)
+- [FAQ](#faqs)
   * [How does Lighthouse work?](#how-does-lighthouse-work)
   * [Can I configure the lighthouse run?](#can-i-configure-the-lighthouse-run)
   * [How does Lighthouse use network throttling, and how can I make it better?](#how-does-lighthouse-use-network-throttling-and-how-can-i-make-it-better)
